@@ -44,17 +44,24 @@ posts = [
     },
 ]
 arr_posts = {post['id']: post for post in posts}
+
+
 def index(request):
     template = 'blog/index.html'
     context = {'posts': posts[::-1]}
     return render(request, template, context)
+
+
 def post_detail(request, id):
     template = 'blog/detail.html'
     post = next((post for post in posts if post['id'] == id), None)
     if not post:
-        return render(request, '404.html', status=404)  # Вернуть 404, если пост не найден
+        return render(request, '404.html', status=404)
+        # Вернуть 404, если пост не найден
     context = {'post': post}
     return render(request, template, context)
+
+
 def category_posts(request, category_slug):
     template = 'blog/category.html'
     context = {'category': category_slug}
